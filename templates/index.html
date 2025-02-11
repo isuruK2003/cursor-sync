@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+  <title>CursorSync</title>
+</head>
+
+<body>
+  <div id="app">
+    <div id="side-panel">
+      <div class="card">
+        <div class="card-item">
+          <span id="connection-status">
+            NOT CONNECTED
+          </span>
+        </div>
+        <div class="card-item">
+          <span id="connection-url"></span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-item">
+          <span>X&nbsp;:&nbsp;</span>
+          <span id="x">___</span>
+        </div>
+        <div class="card-item">
+          <span>Y&nbsp;:&nbsp;</span>
+          <span id="y">___</span>
+        </div>
+      </div>
+    </div>
+    <div id="canvas">
+      <div id="cursor"></div>
+    </div>
+  </div>
+  <script src="{{ url_for('static', path='/script.js') }}"></script>
+</body>
+
+</html>
