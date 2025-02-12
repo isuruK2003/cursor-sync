@@ -2,41 +2,50 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
-  <title>CursorSync</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <title>CursorSync</title>
 </head>
 
 <body>
-  <div id="app">
-    <div id="side-panel">
-      <div class="card">
-        <div class="card-item">
-          <span id="connection-status">
-            NOT CONNECTED
-          </span>
+    <div class="app">
+        <div class="side-panel">
+            <div class="card">
+                <div class="card-item">
+                    <span>Cursor Position</span>
+                </div>
+                <div class="card-item">
+                    <span>X</span><span>:</span>
+                    <span id="x" class="coordinate-value">___</span>
+                </div>
+                <div class="card-item">
+                    <span>Y</span><span>:</span>
+                    <span id="y" class="coordinate-value">___</span>
+                </div>
+            </div>
+
+            <div class="side-panel-bottom">
+                <div class="card">
+                    <div class="card-item">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Connected Users</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-item">
-          <span id="connection-url"></span>
+
+        <div class="main-panel">
+            <div id="canvas">
+                <div id="cursor"></div>
+            </div>
+            <div class="status-bar">
+                <input id="connection-url" type="url" value="ws://localhost:8000/cursor" spellcheck="false">
+                <button id="connection-status" class="disconnected">DISCONNECTED</button>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-item">
-          <span>X&nbsp;:&nbsp;</span>
-          <span id="x">___</span>
-        </div>
-        <div class="card-item">
-          <span>Y&nbsp;:&nbsp;</span>
-          <span id="y">___</span>
-        </div>
-      </div>
     </div>
-    <div id="canvas">
-      <div id="cursor"></div>
-    </div>
-  </div>
-  <script src="{{ url_for('static', path='/script.js') }}"></script>
+    <script src="{{ url_for('static', path='/script.js') }}"></script>
 </body>
 
 </html>

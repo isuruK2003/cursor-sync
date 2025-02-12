@@ -7,7 +7,7 @@ class Cursor {
         return {
             height: this.elem.offsetHeight,
             width: this.elem.offsetWidth
-        }
+        };
     }
 
     setDimensions(height, width) {
@@ -30,33 +30,58 @@ class Cursor {
     }
 }
 
-function main() {
-    const url = "ws://localhost:8000/cursor"
+function updateCursorPositionsDisplay(x, y) {
+    document.getElementById("x").innerHTML = String(x).padStart(4, "0");
+    document.getElementById("y").innerHTML = String(y).padStart(4, "0");
+}
+
+function setupWebSocket(url, cursor) {
     const ws = new WebSocket(url);
-    const c = new Cursor("cursor");
 
-    const updateCursorPositionsDisplay = (x, y) => {
-        document.getElementById("x").innerHTML = String(x).padStart(4, "0");
-        document.getElementById("y").innerHTML = String(y).padStart(4, "0");
+    ws.onopen = () => {
+        document.getElementById("connection-status").innerHTML = "CONNECTED";
+        document.getElementById("connection-status").className = "connected";
     };
-
-    ws.onopen = (e) => {
-        document.getElementById("connection-status").innerHTML = "CONNECTED TO SERVER";
-        document.getElementById("connection-url").innerHTML = `${url}`;
-    }
 
     ws.onmessage = (e) => {
         const data = JSON.parse(e.data);
-        updateCursorPositionsDisplay(data.x, data.y)
-        c.setLoc(data.x, data.y);
+        updateCursorPositionsDisplay(data.x, data.y);
+        cursor.setLoc(data.x, data.y);
     };
 
+    ws.onclose = () => {
+        document.getElementById("connection-status").innerHTML = "DISCONNECTED";
+        document.getElementById("connection-status").className = "disconnected";
+    };
+
+    ws.onerror = (e) => {
+        alert("WebSocket Error: " + e.message);
+    };
+
+    return ws;
+}
+
+function main() {
+    const cursor = new Cursor("cursor");
+    let url = document.getElementById("connection-url").value;
+    let ws = setupWebSocket(url, cursor);
+
     document.getElementById("canvas").addEventListener("mousemove", (e) => {
-        c.setLoc(e.clientX, e.clientY);
-        updateCursorPositionsDisplay(e.clientX, e.clientY)
-        ws.send(JSON.stringify(c.getLoc()))
+        cursor.setLoc(e.clientX, e.clientY);
+        updateCursorPositionsDisplay(e.clientX, e.clientY);
+
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(cursor.getLoc()));
+        }
+    });
+
+    document.getElementById("connection-url").addEventListener("change", (event) => {
+        url = event.target.value;
+        if (ws) {
+            ws.close();
+        }
+        ws = setupWebSocket(url, cursor);
     });
 }
 
 document.addEventListener("DOMContentLoaded", main);
-
