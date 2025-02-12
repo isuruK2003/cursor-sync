@@ -12,7 +12,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
 }
@@ -151,4 +151,54 @@ button#connection-status:active {
 .stat-label {
     font-size: 0.8rem;
     color: var(--text-secondary);
+}
+
+/* Alert box */
+
+.alert-section {
+    position: absolute;
+    width: 100vw;
+}
+
+.alert {
+    position: relative;
+    background-color: rgba(180, 48, 48, 0.4);
+    width: 350px;
+    margin: 1rem auto;
+    padding: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: default;
+    text-align: center;
+}
+
+.alert-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin: 4px;
+}
+
+.alert-close:hover {
+    background-color: inherit;
+}
+
+.alert .heading {
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.alert .body {
+    font-size: 0.95rem;
 }

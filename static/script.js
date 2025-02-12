@@ -1,34 +1,5 @@
-class Cursor {
-    constructor(elemId) {
-        this.elem = document.getElementById(elemId);
-    }
-
-    getDimensions() {
-        return {
-            height: this.elem.offsetHeight,
-            width: this.elem.offsetWidth
-        };
-    }
-
-    setDimensions(height, width) {
-        this.elem.style.width = `${width}px`;
-        this.elem.style.height = `${height}px`;
-    }
-
-    getLoc() {
-        const elem = this.elem.getBoundingClientRect();
-        return {
-            x: elem.x,
-            y: elem.y
-        };
-    }
-
-    setLoc(x, y) {
-        this.elem.style.position = 'absolute';
-        this.elem.style.left = `${x}px`;
-        this.elem.style.top = `${y}px`;
-    }
-}
+// Requires cursor.js in index.html
+// Requires Alert.js in index.html
 
 function updateCursorPositionsDisplay(x, y) {
     document.getElementById("x").innerHTML = String(x).padStart(4, "0");
@@ -55,7 +26,8 @@ function setupWebSocket(url, cursor) {
     };
 
     ws.onerror = (e) => {
-        alert("WebSocket Error: " + e.message);
+        const alert = new Alert("An error occurred in the connection", "Try refreshing the page")
+        alert.show();
     };
 
     return ws;
@@ -84,6 +56,9 @@ function main() {
         }
         ws = setupWebSocket(url, cursor);
     });
+
+    const alert = new Alert("An error occurred in the connection", "Try refreshing the page")
+    alert.show();
 }
 
 document.addEventListener("DOMContentLoaded", main);

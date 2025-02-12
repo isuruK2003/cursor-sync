@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Geist">
     <title>CursorSync</title>
 </head>
 
 <body>
+    <!-- Alert Section -->
+    <div id="alert-section" class="alert-section"></div>
+
+    <!-- App Section -->
     <div class="app">
         <div class="side-panel">
             <div class="card">
@@ -45,6 +50,8 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', path='/alert.js') }}"></script>
+    <script src="{{ url_for('static', path='/cursor.js') }}"></script>
     <script src="{{ url_for('static', path='/script.js') }}"></script>
 </body>
 
