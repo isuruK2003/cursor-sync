@@ -63,9 +63,10 @@ function setupWebSocket(url, cursor) {
 
 function main() {
     const cursor = new Cursor("cursor");
-    let url = document.getElementById("connection-url").value;
+    let url = `ws://${document.getElementById("connection-url").value}/cursor`;
     let ws = setupWebSocket(url, cursor);
 
+    // Handle mousemove in canvas
     document.getElementById("canvas").addEventListener("mousemove", (e) => {
         cursor.setLoc(e.clientX, e.clientY);
         updateCursorPositionsDisplay(e.clientX, e.clientY);
@@ -75,6 +76,7 @@ function main() {
         }
     });
 
+    // Handle websocket url changes
     document.getElementById("connection-url").addEventListener("change", (event) => {
         url = event.target.value;
         if (ws) {

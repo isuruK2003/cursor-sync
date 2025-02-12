@@ -14,7 +14,9 @@ active_connections: List[WebSocket] = []
 @server.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse(
-        request=request, name="index.html"
+        request=request,
+        name="index.html",
+        context={"netloc":request.base_url.netloc}
     )
 
 @server.websocket("/cursor")
