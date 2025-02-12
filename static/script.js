@@ -56,9 +56,6 @@ function main() {
         }
         ws = setupWebSocket(url, cursor);
     });
-
-    const alert = new Alert("An error occurred in the connection", "Try refreshing the page")
-    alert.show();
 }
 
 document.addEventListener("DOMContentLoaded", main);
