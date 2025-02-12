@@ -17,11 +17,15 @@ body {
     color: var(--text-primary);
 }
 
+.text-mono {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .app {
     height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 300px 1fr;
     padding: 16px;
     gap: 16px;
     box-sizing: border-box;
@@ -49,12 +53,11 @@ body {
     justify-content: space-around;
     align-items: center;
     padding: 8px 0;
-    font-size: 0.95rem;
 }
 
 .coordinate-value {
     color: var(--accent-color);
-    font-weight: 500;
+
 }
 
 .main-panel {
@@ -94,7 +97,6 @@ input#connection-url {
     border-bottom: 1px solid var(--border-color);
     padding: 8px 12px;
     flex-grow: 1;
-    font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
 }
 
@@ -137,14 +139,11 @@ button#connection-status:active {
 /* Stats Section */
 
 .side-panel-bottom {
-    border-top: 1px solid var(--border-color);
     margin-top: auto;
     padding-top: 16px;
 }
 
 .stat-value {
-    font-size: 1.2rem;
-    font-weight: 500;
     color: var(--accent-color);
 }
 

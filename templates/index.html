@@ -20,20 +20,20 @@
                 <div class="card-item">
                     <span>Cursor Position</span>
                 </div>
-                <div class="card-item">
+                <div class="card-item text-mono">
                     <span>X</span><span>:</span>
-                    <span id="x" class="coordinate-value">___</span>
+                    <span id="x" class="coordinate-value">---</span>
                 </div>
-                <div class="card-item">
+                <div class="card-item text-mono">
                     <span>Y</span><span>:</span>
-                    <span id="y" class="coordinate-value">___</span>
+                    <span id="y" class="coordinate-value">---</span>
                 </div>
             </div>
 
             <div class="side-panel-bottom">
                 <div class="card">
                     <div class="card-item">
-                        <span class="stat-value">__</span>
+                        <span class="stat-value text-mono">--</span>
                         <span class="stat-label">Connected Users</span>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <div id="cursor"></div>
             </div>
             <div class="status-bar">
-                <input id="connection-url" type="url" value="{{ netloc }}" spellcheck="false">
+                <input id="connection-url" class="text-mono" type="url" value="{{ netloc }}" spellcheck="false">
                 <button id="connection-status" class="disconnected">DISCONNECTED</button>
             </div>
         </div>
