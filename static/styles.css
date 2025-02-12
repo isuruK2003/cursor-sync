@@ -115,6 +115,7 @@ input#connection-url:focus {
 
 button#connection-status {
     font: inherit;
+    font-size: 0.8rem;
     border: none;
     cursor: pointer;
 }
