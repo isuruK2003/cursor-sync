@@ -1,17 +1,26 @@
 // Requires cursor.js in index.html
 // Requires Alert.js in index.html
 
+const canvasElem = document.getElementById("canvas");
+const connectionToggleElem = document.getElementById("connection-toggle");
+const trackingToggleElem = document.getElementById("tracking-toggle");
+const connectionUrlElem = document.getElementById("connection-url");
+const xCoordinateElem = document.getElementById("x");
+const yCoordinateElem = document.getElementById("y");
+
 function updateCursorPositionsDisplay(x, y) {
-    document.getElementById("x").innerHTML = String(x).padStart(4, "0");
-    document.getElementById("y").innerHTML = String(y).padStart(4, "0");
+    xCoordinateElem.innerHTML = String(x).padStart(4, "0");
+    yCoordinateElem.innerHTML = String(y).padStart(4, "0");
 }
 
 function setupWebSocket(url, cursor) {
     const ws = new WebSocket(url);
 
     ws.onopen = () => {
-        document.getElementById("connection-status").innerHTML = "CONNECTED";
-        document.getElementById("connection-status").className = "connected";
+        connectionToggleElem.innerHTML = "CONNECTED";
+        connectionToggleElem.classList.remove("off");
+        connectionToggleElem.classList.add("on");
+
     };
 
     ws.onmessage = (e) => {
@@ -21,8 +30,9 @@ function setupWebSocket(url, cursor) {
     };
 
     ws.onclose = () => {
-        document.getElementById("connection-status").innerHTML = "DISCONNECTED";
-        document.getElementById("connection-status").className = "disconnected";
+        connectionToggleElem.innerHTML = "DISCONNECTED";
+        connectionToggleElem.classList.remove("on");
+        connectionToggleElem.classList.add("off");
     };
 
     ws.onerror = (e) => {
@@ -35,11 +45,14 @@ function setupWebSocket(url, cursor) {
 
 function main() {
     const cursor = new Cursor("cursor");
-    let url = `ws://${document.getElementById("connection-url").value}/cursor`;
+    let url = `ws://${connectionUrlElem.value}/cursor`;
     let ws = setupWebSocket(url, cursor);
+    let trackingEnabled = true;
 
     // Handle mousemove in canvas
-    document.getElementById("canvas").addEventListener("mousemove", (e) => {
+    canvasElem.addEventListener("mousemove", (e) => {
+        if (!trackingEnabled) return;
+
         cursor.setLoc(e.clientX, e.clientY);
         updateCursorPositionsDisplay(e.clientX, e.clientY);
 
@@ -49,12 +62,29 @@ function main() {
     });
 
     // Handle websocket url changes
-    document.getElementById("connection-url").addEventListener("change", (event) => {
+    connectionUrlElem.addEventListener("change", (event) => {
         url = event.target.value;
         if (ws) {
             ws.close();
         }
         ws = setupWebSocket(url, cursor);
+    });
+
+    // Handling tracking ability changes
+    trackingToggleElem.addEventListener("click", () => {
+        if (trackingEnabled) {
+            trackingToggleElem.classList.remove("on");
+            trackingToggleElem.classList.add("off");
+            trackingToggleElem.innerHTML = "TRACKING DISABLED";
+            trackingEnabled = false;
+            canvasElem.style.cursor = "default";
+        } else {
+            trackingToggleElem.classList.remove("off");
+            trackingToggleElem.classList.add("on");
+            trackingToggleElem.innerHTML = "TRACKING ENABLED";
+            trackingEnabled = true;
+            canvasElem.style.cursor = "none";
+        }
     });
 }
 

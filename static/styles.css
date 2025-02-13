@@ -12,7 +12,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Geist', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
 }
@@ -105,7 +105,14 @@ input#connection-url:focus {
     border-color: var(--accent-color);
 }
 
-#connection-status {
+button {
+    font: inherit;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+}
+
+button.toggle {
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 0.8rem;
@@ -115,23 +122,16 @@ input#connection-url:focus {
     text-align: center;
 }
 
-button#connection-status {
-    font: inherit;
-    font-size: 0.8rem;
-    border: none;
-    cursor: pointer;
-}
-
-button#connection-status:active {
+button.toggle:active {
     opacity: 0.8;
 }
 
-#connection-status.connected {
+button.toggle.on {
     background: rgba(74, 255, 74, 0.1);
     color: var(--success-color);
 }
 
-#connection-status.disconnected {
+button.toggle.off {
     background: rgba(255, 74, 74, 0.1);
     color: var(--error-color);
 }

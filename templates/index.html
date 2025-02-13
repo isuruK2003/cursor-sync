@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Geist">
     <title>CursorSync</title>
 </head>
 
@@ -16,20 +15,6 @@
     <!-- App Section -->
     <div class="app">
         <div class="side-panel">
-            <div class="card">
-                <div class="card-item">
-                    <span>Cursor Position</span>
-                </div>
-                <div class="card-item text-mono">
-                    <span>X</span><span>:</span>
-                    <span id="x" class="coordinate-value">---</span>
-                </div>
-                <div class="card-item text-mono">
-                    <span>Y</span><span>:</span>
-                    <span id="y" class="coordinate-value">---</span>
-                </div>
-            </div>
-
             <div class="side-panel-bottom">
                 <div class="card">
                     <div class="card-item">
@@ -45,8 +30,13 @@
                 <div id="cursor"></div>
             </div>
             <div class="status-bar">
+                <span class="text-mono">
+                    <span>(X , Y)</span> :
+                    (<span id="x" class="coordinate-value">---</span> ,<span id="y" class="coordinate-value">---</span>)
+                </span>
+                <button id="tracking-toggle" class="toggle on">TRACKING ENABLED</button>
                 <input id="connection-url" class="text-mono" type="url" value="{{ netloc }}" spellcheck="false">
-                <button id="connection-status" class="disconnected">DISCONNECTED</button>
+                <button id="connection-toggle" class="toggle off">DISCONNECTED</button>
             </div>
         </div>
     </div>
