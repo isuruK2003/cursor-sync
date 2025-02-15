@@ -44,13 +44,14 @@ function setupWebSocket(url, cursor) {
 }
 
 function main() {
+
+    const readWsUrl = () => `ws://${connectionUrlElem.value}/cursor`;
+
     const cursor = new Cursor("cursor");
-    let url = `ws://${connectionUrlElem.value}/cursor`;
-    let ws = setupWebSocket(url, cursor);
+    let ws = setupWebSocket(readWsUrl(), cursor);
     let trackingEnabled = true;
 
-    // Handle mousemove in canvas
-    canvasElem.addEventListener("mousemove", (e) => {
+    const handleCanvasMouseMove = (e) => {
         if (!trackingEnabled) return;
 
         cursor.setLoc(e.clientX, e.clientY);
@@ -59,19 +60,16 @@ function main() {
         if (ws.readyState === WebSocket.OPEN) {
             ws.send(JSON.stringify(cursor.getLoc()));
         }
-    });
+    };
 
-    // Handle websocket url changes
-    connectionUrlElem.addEventListener("change", (event) => {
-        url = event.target.value;
+    const handleUrlChanges = (e) => {
         if (ws) {
             ws.close();
         }
-        ws = setupWebSocket(url, cursor);
-    });
+        ws = setupWebSocket(readWsUrl(), cursor);
+    };
 
-    // Handling tracking ability changes
-    trackingToggleElem.addEventListener("click", () => {
+    const toggleTracking = () => {
         if (trackingEnabled) {
             trackingToggleElem.classList.remove("on");
             trackingToggleElem.classList.add("off");
@@ -85,7 +83,15 @@ function main() {
             trackingEnabled = true;
             canvasElem.style.cursor = "none";
         }
-    });
+    };
+
+    // Registering Mouse Events
+    canvasElem.addEventListener("mousemove", handleCanvasMouseMove);
+    connectionUrlElem.addEventListener("change", handleUrlChanges);
+    trackingToggleElem.addEventListener("click", toggleTracking);
+
+    // Registering Keyboard Events
+    document.addEventListener("keypress", (e) => e.key.toLowerCase() === "t" && toggleTracking());      
 }
 
 document.addEventListener("DOMContentLoaded", main);

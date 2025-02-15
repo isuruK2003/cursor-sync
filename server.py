@@ -34,4 +34,3 @@ async def cursor_websocket(websocket: WebSocket):
                     await connection.send_json(data)
     except:
         active_connections.remove(websocket)
-        await websocket.close()
